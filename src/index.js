@@ -38,7 +38,7 @@ app.get("/jokes/search", (req, res) => {
     joke.setup.includes(queryTerm)
   );
 
-  res.json({ searchedJokes });
+  res.json(searchedJokes);
 });
 
 //start the app listening on a port.
@@ -61,7 +61,7 @@ function serveFirstJokePlain(req, res) {
 }
 
 function serveRandomJoke(req, res) {
-  res.json(pick(allJokes));
+  res.json([pick(allJokes)]);
 }
 
 function pick(arr) {
