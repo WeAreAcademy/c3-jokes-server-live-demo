@@ -7,6 +7,7 @@ const allJokes = require("./theJokes.json");
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 //configure the app
 
@@ -25,6 +26,13 @@ app.get("/jokes/random", serveRandomJoke);
 //But not clearer
 app.get("/jokes", (req, res) => {
   res.json(allJokes);
+});
+
+app.post("/jokes", (req, res) => {
+  const body = req.body;
+  const newJoke = body;
+  allJokes.push(newJoke);
+  res.json([newJoke]);
 });
 
 app.get("/jokes/search", (req, res) => {
