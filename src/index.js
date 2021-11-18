@@ -1,9 +1,12 @@
 //jokes from https://github.com/15Dkatz/official_joke_api
 
+const { query } = require("express");
 const express = require("express");
+const cors = require("cors");
+const allJokes = require("./theJokes.json");
 const app = express();
 
-const allJokes = require("./theJokes.json");
+app.use(cors());
 
 //configure the app
 
@@ -22,6 +25,20 @@ app.get("/jokes/random", serveRandomJoke);
 //But not clearer
 app.get("/jokes", (req, res) => {
   res.json(allJokes);
+});
+
+app.get("/jokes/search", (req, res) => {
+  if (!req.query.term) {
+    res.json({ message: "No query term!" });
+    return;
+  }
+  const queryTerm = req.query.term;
+
+  const searchedJokes = allJokes.filter((joke) =>
+    joke.setup.includes(queryTerm)
+  );
+
+  res.json({ searchedJokes });
 });
 
 //start the app listening on a port.
