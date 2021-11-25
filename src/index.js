@@ -50,8 +50,10 @@ app.get("/jokes/search", (req, res) => {
 });
 
 //start the app listening on a port.
-app.listen(5000, () => {
-  console.log("Express server started listening ok!");
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`Express server started listening on port ${port}, ok!`);
 });
 
 function serveWelcome(req, res) {
